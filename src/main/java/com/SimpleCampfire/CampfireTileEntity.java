@@ -103,21 +103,26 @@ public class CampfireTileEntity extends TileEntity {
 		return drops;
 	}
 	
-	void particleStuff(String status, World world)
+	void particleStuff(int status, World world)
 	{
 		//Pick some velocities.
 		float xVel=(float) ((Math.random()-0.5f)*0.05f);
 		float zVel=(float) ((Math.random()-0.5f)*0.05f);
+		/* Some handy definitions.
+		int stateHostileNear=1;
+		int stateNormal=2;
+		int stateNoFuel=3;
+		*/
 		switch(status)
 		{
 		//If there's a baddie nearby...
-		case "hostileNear":
+		case 1:
 			//Make some blue particles. Bilbo found this campfire in a troll cave.
 			world.spawnParticle("reddust", this.xCoord+0.5f, this.yCoord+Math.random(), this.zCoord+0.5f, -1.0f, 1.0f, 2.0f);
 			break;
 			
 		//If we're just dealing with the usual pigs...
-		case "normal":
+		case 2:
 			//Do some flames and smoke.
 			world.spawnParticle("flame", this.xCoord+0.5f, this.yCoord+0.1f, this.zCoord+0.5f, xVel, Math.random()*0.1f, zVel);
 			if(particleTimer > 4)
@@ -134,7 +139,7 @@ public class CampfireTileEntity extends TileEntity {
 			break;
 		
 		//If we're out of fuel...
-		case "noFuel":
+		case 3:
 			//Do nothing.
 			break;
 			
@@ -152,7 +157,7 @@ public class CampfireTileEntity extends TileEntity {
 	{
 		//Set up some variables.
 		World world = worldObj;
-		String status = "normal";
+		int status = 2;
 		//Make a bounding box, and grab some entities from it.
 		AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(this.xCoord-16, this.yCoord, this.zCoord-16, this.xCoord+16, this.yCoord+16, this.zCoord+16);
 		@SuppressWarnings("unchecked") //I'm pretty sure I'm putting the right variables in here. If I'm not, then...well, my bad.
@@ -168,13 +173,13 @@ public class CampfireTileEntity extends TileEntity {
 				if(entities.get(i) instanceof IMob)
 				{
 					//Set the status.
-					status = "hostileNear";
+					status = 1;
 				}
 				//Otherwise...
 				else
 				{
 					//Set the status to something else. I'll add something to set the status to noFuel later.
-					status = "normal";
+					status = 2;
 				}
 			}
 		}

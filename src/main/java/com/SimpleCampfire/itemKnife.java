@@ -35,7 +35,10 @@ public class itemKnife extends ItemShears {
 			if(!world.isRemote)
 			{
 				//world.setBlockToAir(x, y, z);
-				target.breakBlock(world, x, y, z, target, 0);
+				System.out.print("Knife click!\n");
+				if(!world.isRemote) {
+					target.breakBlock(world, x, y, z, target, 0);
+				}
 				return true;
 			}
 			else

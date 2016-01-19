@@ -15,8 +15,6 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = Main.MODID, version = Main.VERSION)
 public class Main
@@ -67,6 +65,8 @@ public class Main
     			{
     				if(drops[i] != null)
     				{
+    					System.out.print(drops[i].getDisplayName() + ":");
+    					System.out.print(drops[i].stackSize + "\n");
     					Entity dropItem = new EntityItem(world, x, y, z, drops[i]);
     					world.spawnEntityInWorld(dropItem);
     				}

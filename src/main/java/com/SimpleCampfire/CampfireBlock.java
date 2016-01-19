@@ -58,12 +58,12 @@ public class CampfireBlock extends BlockContainer {
     public void breakBlock(World world, int x, int y, int z, Block block, int beans) {
     	//Tell the block to break.
     	//super.breakBlock(world, x, y, z, block, beans);
-    	ItemStack[] drops = getDropsByArray(world, x, y, z, 0, 0);
-    	if(!world.isRemote)
-    	{
-    		Main.doDrops(world, x, y, z, drops);
+    	if(!world.isRemote) {
+    		ItemStack[] drops = getDropsByArray(world, x, y, z, 0, 0);
+    		System.out.print("Running doDrops! " + world.isRemote + "\n");
+       		Main.doDrops(world, x, y, z, drops);
+    		world.setBlockToAir(x, y, z);
     	}
-    	world.setBlockToAir(x, y, z);
     	//TODO: Make the campfire only drop items once.
     }
     
